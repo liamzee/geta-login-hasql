@@ -1,0 +1,63 @@
+cabal-version:      3.12
+name:               geta-login-hasql
+version:            0.1.0.0
+synopsis:
+    Simple (but not optimal) functions for web applications with a PostgreSQL backend, featuring an hasql interface.
+homepage:           https://github.com/liamzee/geta-login-hasql
+license:            MIT
+license-file:       LICENSE
+author:             liamzee
+maintainer:         liam.zhu@protonmail.com
+category:           Database
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+-- extra-source-files:
+
+common warnings
+    ghc-options: -Wall -O2
+
+common defaultOptions
+    default-extensions: BlockArguments
+
+library
+    import:
+        warnings,
+        defaultOptions
+    exposed-modules:
+        Geta.Login,
+        Geta.Login.CreateUser,
+        Geta.Login.ValidateAccountEmail,
+        Geta.Login.Login,
+        Geta.Login.ResetPassword,
+        Geta.Login.Reexports,
+        Geta.Login.Utils.Internal
+    -- other-modules:
+    -- other-extensions:
+    build-depends:
+        base ^>=4.21.0.0,
+        text ^>=2.1.2,
+        bytestring ^>=0.12.2.0,
+        hasql ^>=1.9.1.2,
+        crypton ^>=1.0.4,
+        email-validate ^>= 2.3.2.21,
+        smtp-mail ^>= 0.5.0.0,
+        memory ^>= 0.18.0
+        
+    hs-source-dirs:   src
+    default-language: GHC2024
+
+test-suite geta-login-hasql-test
+    import:
+        warnings,
+        defaultOptions
+    default-language: GHC2024
+    -- other-modules:
+    -- other-extensions:
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+
+    build-depends:
+        base ^>=4.21.0.0,
+        hasql ^>=1.9.1.2,
+        geta-login-hasql
